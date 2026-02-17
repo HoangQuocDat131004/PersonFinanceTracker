@@ -1,0 +1,17 @@
+# Dependency folders
+node_modules/
+dist/
+.next/
+
+# Environment variables (Cực kỳ quan trọng)
+.env
+.env.local
+.env.production
+.env.development
+
+# Database
+*.db
+*.sqlite
+
+# Prisma
+/prisma/binary-engines
