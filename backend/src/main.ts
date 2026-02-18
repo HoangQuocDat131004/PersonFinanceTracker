@@ -18,10 +18,18 @@ async function bootstrap() {
   // 1. Cấu hình CORS linh hoạt
   // Khi chạy trên Vercel, link frontend sẽ khác localhost:3000
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      process.env.FRONTEND_URL, // Thêm biến này để điền link Vercel sau này
-    ].filter(Boolean) as string[],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'http://localhost:3000',
+        process.env.FRONTEND_URL
+      ].filter(Boolean);
+
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   });
 
