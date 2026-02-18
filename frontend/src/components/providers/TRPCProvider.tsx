@@ -8,7 +8,7 @@ import superjson from "superjson";
 import Cookies from "js-cookie";
 
 export function TRPCProvider({ children }: { children: React.ReactNode }) {
-    //KHỞI TẠO QUERY CLIENT (Bộ nhớ đệm)
+    // KHỞI TẠO QUERY CLIENT (Bộ nhớ đệm)
     const [queryClient] = useState(() => new QueryClient({
         defaultOptions: {
             queries: {
@@ -18,13 +18,23 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
         },
     }));
 
-    //KHỞI TẠO TRPC CLIENT (Cầu nối gửi request)
+    // TỰ ĐỘNG XÁC ĐỊNH URL CHO BACKEND
+    const getBaseUrl = () => {
+        // Ưu tiên dùng biến môi trường từ Vercel nếu có
+        if (process.env.NEXT_PUBLIC_API_URL) {
+            return process.env.NEXT_PUBLIC_API_URL;
+        }
+        // Nếu không (chạy ở Local), dùng localhost
+        return "http://localhost:4000";
+    };
+
+    // KHỞI TẠO TRPC CLIENT (Cầu nối gửi request)
     const [trpcClient] = useState(() =>
         trpc.createClient({
             links: [
                 httpBatchLink({
-
-                    url: "http://localhost:4000/trpc",
+                    // Kết hợp Base URL với endpoint /trpc
+                    url: `${getBaseUrl()}/trpc`,
                     transformer: superjson,
                     async headers() {
                         const token = Cookies.get("auth-token");
