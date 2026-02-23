@@ -33,38 +33,29 @@ Di chuyển vào thư mục backend và cài đặt thư viện:
 ```bash
 cd backend
 npm install
+```
 Tạo file .env trong thư mục backend và dán cấu hình sau:
-
-Đoạn mã
+```bash
 DATABASE_URL="mysql://username:password@localhost:3306/finance_db"
+```
 Khởi tạo database và chạy server:
-
-Bash
-# Đồng bộ hóa cơ sở dữ liệu
+```bash
 npx prisma migrate dev --name init
-
-# Khởi chạy server (Port 3001)
+```
+```bash
 npm run start:dev
-2. Cấu hình Frontend
+```
+### 2. Cấu hình Frontend
 Mở một terminal mới, di chuyển vào thư mục frontend và cài đặt:
-
-Bash
+```bash
 cd frontend
 npm install
+```
 Tạo file .env.local trong thư mục frontend và thêm địa chỉ API:
-
-Đoạn mã
+```bash
 NEXT_PUBLIC_API_URL="http://localhost:3001"
+```
 Khởi chạy ứng dụng:
-
-Bash
-# Khởi chạy ứng dụng (Port 3000)
+```bash
 npm run dev
-📈 Những gì tôi đã học được
-Xây dựng ứng dụng Full-stack với Next.js và NestJS.
-
-Sử dụng Prisma để quản lý cơ sở dữ liệu MySQL.
-
-Hiển thị dữ liệu với TanStack Table và Recharts.
-
-Đảm bảo an toàn dữ liệu giữa Client và Server với tRPC.
+```
